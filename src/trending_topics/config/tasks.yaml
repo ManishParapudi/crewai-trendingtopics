@@ -1,0 +1,30 @@
+researcher_task:
+  description: >
+    Search for the most recent and trending news articles or blogs related to the topic {subject} as of current date {date}
+    Make sure you find any interesting and relevant trends as of Date {date}. 
+    Donot mention previous years information.
+  expected_output: >
+    A list of 5-10 links with short descriptions or snippets. 
+  agent: researcher
+  output_file: output/research.txt
+
+curator_task:
+  description: >
+    Review the output from the researcher and select the top 3 most relevant or interesting articles.
+  expected_output: >
+    A curated list of 3 high-quality articles with brief justifications for selection.
+  agent: curator
+  output_file: output/curator.txt
+  context:
+    - researcher_task
+
+publisher_task:
+  description: >
+    Create a well-written summary post highlighting the top 3 trending topics in a clear and engaging format.
+  expected_output: >
+    A summary post with headlines, key insights, and context — suitable for posting on a blog or social media.
+    Mention Topic Name, URL Of website, Reason for selecting this topic and Description. 
+  agent: publisher
+  output_file: output/publisher.txt
+  context:
+    - curator_task
